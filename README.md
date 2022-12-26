@@ -7,4 +7,6 @@ Command instructions:
 
 2. git commit -m 'commit message'
 
+2.5 remember to wait a little bit
+
 3. git push -u origin main
