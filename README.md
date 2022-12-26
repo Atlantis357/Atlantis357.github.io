@@ -10,3 +10,8 @@ Command instructions:
 2.5 remember to wait a little bit
 
 3. git push -u origin main
+
+
+// todos // 
+- fill in personal information
+- fix the two social links to instagram and
