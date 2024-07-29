@@ -302,62 +302,8 @@
 
                 svg.selectAll(".area")
                     .on("click", (event, d) => {
-                        const year = Math.round(x.invert(d3.pointer(event)[0]));
-                        createPieChart(year, sport);
+                        // No more charts
                     });
-            }
-
-            function createPieChart(year, sport) {
-                const pieWidth = 300;
-                const pieHeight = 300;
-                const radius = Math.min(pieWidth, pieHeight) / 2;
-
-                d3.select("#yearPieChart").selectAll("*").remove();
-
-                const pieSvg = d3.select("#yearPieChart")
-                    .append("svg")
-                    .attr("width", pieWidth)
-                    .attr("height", pieHeight)
-                    .append("g")
-                    .attr("transform", `translate(${pieWidth / 2},${pieHeight / 2})`);
-
-                let filteredData = data.filter(d => d.Year === year);
-                if (sport !== "all") {
-                    filteredData = filteredData.filter(d => d.Sport === sport);
-                }
-
-                const genderCounts = d3.rollup(filteredData,
-                    v => new Set(v.map(d => d.ID)).size,
-                    d => d.Sex
-                );
-
-                const pieData = Array.from(genderCounts, ([key, value]) => ({key, value}));
-
-                const pie = d3.pie()
-                    .value(d => d.value);
-
-                const arc = d3.arc()
-                    .innerRadius(0)
-                    .outerRadius(radius);
-
-                const arcs = pieSvg.selectAll("arc")
-                    .data(pie(pieData))
-                    .enter()
-                    .append("g");
-
-                arcs.append("path")
-                    .attr("d", arc)
-                    .attr("fill", d => color(d.data.key));
-
-                arcs.append("text")
-                    .attr("transform", d => `translate(${arc.centroid(d)})`)
-                    .attr("text-anchor", "middle")
-                    .text(d => `${d.data.key}: ${d.data.value}`);
-
-                pieSvg.append("text")
-                    .attr("text-anchor", "middle")
-                    .attr("dy", "-1em")
-                    .text(`Gender Distribution in ${year}`);
             }
 
             updateChart("all");
